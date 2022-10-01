@@ -17,11 +17,11 @@
 
 #define MAXCHAR 512
 #define PERIOD 1000000 //Period in microseconds
-#define N 30
 
 //Static Variables
 static int n_reps;
 static int arr_size;
+static int N;
 
 
 long long timeInMicro(void) {
@@ -84,12 +84,11 @@ void* task_loop(void* par){
 	{
 		wait_next_activation(th);
 		start=timeInNano();
-		printf("execution n. %d\n", i);
-		
+		//printf("execution n. %d\n", i);
         int status = system(program_invocation_string);
 		finish = timeInNano();
 		diff[i] = (finish - start);
-        printf("execution time: %lld\n",diff[i]);
+        printf("run %d:%lld\n",i,diff[i]);
 		i++;
 	}
 	wait_next_activation(th);
@@ -98,14 +97,15 @@ void* task_loop(void* par){
 
 int main(int argc,char* argv[])
 {
-  	if (argc != 3){
-        printf("Insert the array size and the number of repetitions\n");
+  	if (argc != 4){
+        printf("Insert the array size, the number of repetitions, and the number of the period task instances\n");
         return 0;
     }
     else
     {
 	    arr_size=atoi(argv[1]);
 		n_reps=atoi(argv[2]);
+        N=atoi(argv[3]);
 	}
 	// Init thread attr.
 	pthread_t controller_thread;

@@ -16,4 +16,4 @@ rt-lib.o: rt-lib.c lib/rt-lib.h
 	$(CC) -c rt-lib.c -o $(ODIR)rt-lib.o
 
 clean:
-	rm $(ODIR)*.o $(BINDIR)task
+	rm $(ODIR)*.o $(BINDIR)task $(BINDIR)*.txt
